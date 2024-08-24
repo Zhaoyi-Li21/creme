@@ -4,9 +4,9 @@ This repo contains the official implementation for the paper *Understanding and 
 ## Install conda environment and packages
 
 ## Data and Models
-> For data please find in the `./data` dictionary.
+- For data please find in the `./data` dictionary.
 ## Inference Experiments (Compositionality Gap)
-> For running inference experiments, please first running the command `cd inference` to switch working dictionary to the `inference` dictionary.
+- For running inference experiments, please first running the command `cd inference` to switch working dictionary to the `inference` dictionary.
 ## Logit Lens Experiments
 
 ## Intervention Experiments
