@@ -27,10 +27,9 @@ import matplotlib.pyplot as plt
 random.seed(0)
 torch.set_grad_enabled(False)
 
-# model_name = "gpt2-xl"  # or "EleutherAI/gpt-j-6B" or "EleutherAI/gpt-neox-20b"
-# model_name = "gpt-j-6b"
-model_name = "openalpaca-3b"
-# model_name = "llama2-7b"
+
+model_name = sys.argv[1].replace('_', '-')# "llama2-7b" or "openalpaca-3b"
+fix = sys.argv[2] #"suffix" or "prefix"
 model_path = model_name2path(model_name)
 model_type = get_lm_type(model_name)
 print("Model Name:{}, Model Path:{}, Model Type:{}".format(model_name, model_path, model_type))
@@ -44,30 +43,14 @@ vocab_size = int(mt.model.state_dict()['lm_head.weight'].shape[0])
 
 average = True
 
-save_dir = "/root/autodl-tmp/zhaoyi/knowledge_locate/rewrite_guide/batch"
-exp_name = "openalpaca.wpred.dedup.switch.suffix"
+dir_path = "/root/autodl-tmp/zhaoyi/creme" # change it into yours
+save_dir = dir_path + "/inspecting_and_intervention/locating/results"
+
 window_size = 6
-if window_size > 0:
-    exp_name = exp_name + "_wd" + str(window_size)
-exp_name = exp_name +'_'+ model_name+'.json'
-save_path = save_dir + '/' +exp_name
+
+save_path = save_dir + '/' + model_name + '.' + fix + '.json'
 fw = open(save_path,"w")
 try_one = False
-
-# prompt = "The home country of the sport associated with Giorgio Chinaglia is"
-# prompt_subj = "The home country of the sport associated with Giorgio Chinaglia"
-# prompt_guide = "The home country of association football is"
-# prompt_guide_subj = "The home country of association football"
-# implicit_answer = "association football"
-# explicit_answer = "England"
-
-
-# prompt = "The head of state of the country where ORLAN holds citizenship is"
-# prompt_subj = "The head of state of the country where ORLAN holds citizenship"
-# prompt_guide = "France is"
-# prompt_guide_subj = "France"
-# implicit_answer = "France"
-# explicit_answer = "Emmanuel Macron"
 
 
 W = mt.model.state_dict()['lm_head.weight'] # W * h = v, shape = [32000, hid_dim]
@@ -304,7 +287,7 @@ def plot(x, ys, labels, x_label, y_label, title='test', save_path=None):
 output_data = list()
 
 
-file_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/inference/MQuAKE/filter_2/openalpaca.pass_singles_fail_comp.wpred.dedup.switch.sufcloze.json"
+file_path = dir_path + "/inference/MQuAKE/filter/" + model_name + ".pass_singles_fail_comp."+ fix +".json"
 fr = open(file_path, "r")
 data = json.load(fr)
 for i in range(len(data)):
@@ -403,7 +386,7 @@ for i in range(len(data)):
         plot(x, probs, labels, "layer", "probability", prompt+'\n'+prompt_guide+'\n'+"Prob Variance: "+explicit_answer, 'test_2.png')
         break
 
-file_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/inference/MQuAKE/filter_2/openalpaca.pass_all.wpred.dedup.switch.sufcloze.json"
+file_path = dir_path + "/inference/MQuAKE/filter/" + model_name + ".pass_all."+ fix +".json"
 fr_2 = open(file_path, "r")
 data = json.load(fr_2)
 for i in range(len(data)):

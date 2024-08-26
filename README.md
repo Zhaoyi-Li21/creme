@@ -26,7 +26,9 @@ To run causal intervention experiments, first change the working path `cd inspec
 - To run the causal intervention experiment: run the command `python causality.py <model_name> <fix_type>`. This program will generate a result file `<model_name>.<fix_type>.json` in the `results` dictionary.
 - To aggregate the results (average over instances) and visualize them: first switch the working path into the `results` dictionary `cd results` and run the command `python aggregate_visualize.py <model_name> <fix_type>`. Successful running will generate a heatmap figure in the same dictionary.
 ## Locating Experiments
-
+To run locating experiments, first change the working path `cd inspecting_and_intervention/locating`.
+- To run the locating experiments, run the command `python locating.py <model_name> <fix_type>`. Successful running the program will generate a result file `<model_name>.<fix_type>.json` in the `inspecting_and_intervention/locating/results` dictionary.
+- To aggregate the results (average over instances) and visualize them: first switch the working path into the `results` dictionary `cd results` and run the command `python aggregate_visualize.py <model_name> <fix_type>`. Successful running will generate a heatmap figure in the same dictionary.
 ## Correcting Compositional Reasoning Errors via Model Editing
 
 ## Citation
