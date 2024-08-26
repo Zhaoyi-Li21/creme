@@ -1,4 +1,4 @@
-# CREME
+# Understanding and Patching Compositional Multihop Reasoning in Large Language Models
 This repo contains the official implementation for the paper *Understanding and Patching Compositional Reasoning in LLMs* (ACL'2024, Findings)
 
 ## Install conda environment and packages
@@ -16,7 +16,9 @@ To run inference experiments (Compositionality Gap, Compositional Reasoning Erro
 - To run inference for compositional two-hop questions, run `python inference_comp.py <model_name>`. After finishing running the inference program, there will be a result file (`<model_name>.json`) automatically stored in the `inference/MQuAKE/compositional` dictionary.
 - After fetching the inference results for both single-hop questions and compositional two-hop questions, we can run `python filter.py <model_name> <fix_type>` to classify results into two categories: (1) `pass_all` which means that the LLM can correctly answer both single-hop questions and the corresponding compositional ones; (2) `pass_singles_fail_comp` which means that the LLM though correctly both single-hop questions, fail to solve the compositional ones (Regarding the [Compositionality Gap](https://aclanthology.org/2023.findings-emnlp.378/), Compositional Reasoning Errors). Both these two parts of results will be seperately stored into two files in the `inference/MQuAKE/filter` dictionary.
 - Notes: `<fix_type>` could be `prefix` or `suffix`, indicating two different orders when composing two single-hop questions. This is for furture usage. Besides, in each single testing case, there are three paraphrasing compositional questions (share the same meaning) to test the model. Following the original [MQuAKE](https://arxiv.org/abs/2305.14795) paper, we regard the model pass the testing as long as it can correctly answer one of the three paraphrased questions.
+
 ## Logit Lens Experiments
+The following three parts (*logit lens inspection, intervention experiments and locating experiments*) are in the `inspecting_and_intervention` dictionary, which was implemented highly on the basis of [ROME's official implementation](https://github.com/kmeng01/rome) (this is an acknowledgement!).
 
 ## Intervention Experiments
 
