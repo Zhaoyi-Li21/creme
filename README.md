@@ -11,7 +11,11 @@ For data please switch the working path into the `./data` dictionary and run `cd
 - For editing (patching) experiments: we construct `MQuAKE-CF-3k.2hop.edit.json`, where we sample paraphrasing set, generalization set and irrelavance set (please refer to the paper for detailed introduction) for each testing case on the basis of `MQuAKE-CF-3k.2hop.json`.
 
 ## Inference Experiments (Compositionality Gap)
-- For running inference experiments, please first running the command `cd inference` to switch working dictionary to the `inference` dictionary.
+To run inference experiments (Compositionality Gap, Compositional Reasoning Errors), please change the working path into the `inference` dictionary (`cd inference/MQuAKE`).
+- To run inference for single-hop questions, run `python inference_single.py <model_name>`, where `<model_name>` could be `llama2-7b`, `llama2-13b` or `openalpace-3b`. After finishing running the inference program, there will be a result file (`<model_name>.json`) automatically stored in the `inference/MQuAKE/single-hop` dictionary.
+- To run inference for compositional two-hop questions, run `python inference_comp.py <model_name>`. After finishing running the inference program, there will be a result file (`<model_name>.json`) automatically stored in the `inference/MQuAKE/compositional` dictionary.
+- After fetching the inference results for both single-hop questions and compositional two-hop questions, we can run `python filter.py <model_name> <fix_type>` to classify results into two categories: (1) `pass_all` which means that the LLM can correctly answer both single-hop questions and the corresponding compositional ones; (2) `pass_singles_fail_comp` which means that the LLM though correctly both single-hop questions, fail to solve the compositional ones (Regarding the [Compositionality Gap](https://aclanthology.org/2023.findings-emnlp.378/), Compositional Reasoning Errors). Both these two parts of results will be seperately stored into two files in the `inference/MQuAKE/filter` dictionary.
+- Notes: `<fix_type>` could be `prefix` or `suffix`, indicating two different orders when composing two single-hop questions. This is for furture usage. Besides, in each single testing case, there are three paraphrasing compositional questions (share the same meaning) to test the model. Following the original [MQuAKE](https://arxiv.org/abs/2305.14795) paper, we regard the model pass the testing as long as it can correctly answer one of the three paraphrased questions.
 ## Logit Lens Experiments
 
 ## Intervention Experiments
