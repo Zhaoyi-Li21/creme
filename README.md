@@ -1,6 +1,6 @@
 # Understanding and Patching Compositional Multihop Reasoning in Large Language Models
 This repo contains the official implementation for the paper *Understanding and Patching Compositional Reasoning in LLMs* (ACL'2024, Findings)
-
+![Understanding and patching Compositional Reasoning in LLMs](poster_acl2024_creme_page-0001.jpg)
 ## Install conda environment and packages
 The environment yaml files are located in the `./environments` dictionary. Note that we have two environments: one for investigating experiments (inference, logit lens, causal intervention and locating), another one for patching experiments (creme).
 - For investigating experiments: run the command `conda env create -n investigate environments/investigating/environment.yaml`; then activate the environment `conda activate investigate` when running investigating experiments.
