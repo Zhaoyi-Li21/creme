@@ -32,6 +32,9 @@ To run locating experiments, first change the working path `cd inspecting_and_in
 - To run the locating experiments, run the command `python locating.py <model_name> <fix_type>`. Successful running the program will generate a result file `<model_name>.<fix_type>.json` in the `inspecting_and_intervention/locating/results` dictionary.
 - To aggregate the results (average over instances) and visualize them: first switch the working path into the `results` dictionary `cd results` and run the command `python aggregate_visualize.py <model_name> <fix_type>`. Successful running will generate a heatmap figure in the same dictionary.
 ## Correcting Compositional Reasoning Errors via Model Editing
+To run the patching experiments, first change the working path `cd creme`. This part of codes was constructed on the basis of [FastEdit](https://github.com/hiyouga/FastEdit).
+- To get statistical results, first `cd fastedit_comp`. Run the command `bash test_batch.sh` to get *correction, paraphrasing* and *generalization* testing results. Run the command `bash test_batch_v2.sh` to get *irrelevant* testing results.
+- To test a single case, first `cd fastedit_comp` and then run the command `test.sh`.
 
 ## Citation
 If you find the paper or the repo is helpful, it would be lovely that you considering cite the paper:
