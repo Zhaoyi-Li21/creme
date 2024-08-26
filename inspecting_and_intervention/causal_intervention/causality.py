@@ -1,5 +1,4 @@
 import os, re, json, sys
-# os.chdir("/root/autodl-tmp/zhaoyi/knowledge_locate/rome")
 sys.path.append("..") 
 import torch, numpy
 from collections import defaultdict
@@ -27,10 +26,9 @@ import matplotlib.pyplot as plt
 random.seed(0)
 torch.set_grad_enabled(False)
 
-# model_name = "gpt2-xl"  # or "EleutherAI/gpt-j-6B" or "EleutherAI/gpt-neox-20b"
-# model_name = "gpt-j-6b"
+
 # model_name = "openalpaca-3b"
-model_name = "llama2-7b"
+model_name = sys.argv[1].replace('_', '-') # "llama2-7b"
 model_path = model_name2path(model_name)
 model_type = get_lm_type(model_name)
 print("Model Name:{}, Model Path:{}, Model Type:{}".format(model_name, model_path, model_type))
@@ -47,25 +45,43 @@ vocab_size = int(mt.model.state_dict()['lm_head.weight'].shape[0])
 average = True
 use_t = False
 recheck = True
-rc_strength = 10
-mode = "suppress" # or "enhance"
-# mode = "enhance"
-mode_str = "_" + mode[0]
+rc_strength = 10 # recheck strength
+mode = 'suppress' # or "enhance"; 
+fix = sys.argv[2] # "prefix" or "suffix"
 
-exp_name = 'new_overall'
-write_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/debias_causal_intervent/datasets/"+exp_name+'.suf.taketime.3.json'
+dir_path = "/root/autodl-tmp/zhaoyi/creme" # change it to your path
+
+write_path = dir_path + "/inspecting_and_intervention/causal_intervention/results/" + model_name + "." + fix + "json"
 fw = open(write_path, "w")
 
-data_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/datasets/MQuAKE/datasets/new_debias/suf.groundtruth.json"
+data_path = dir_path + "/inspecting_and_intervention/causal_intervention/" + model_name + "." + fix + ".json" 
 fr = open(data_path, "r")
+
 data = json.load(fr)
 
 
 W = mt.model.state_dict()['lm_head.weight'] # W * h = v, shape = [32000, hid_dim]
-if use_t == False:
-    A = torch.load('/root/autodl-tmp/zhaoyi/knowledge_locate/rome/my_exps/cache/A.pt').cuda() # A.shape = [hid_dim, 32000]
-else:
+inverse_map_matrix_path = './cache/A.pt' # change it to yours
+if use_t == False: # not use transpose matrix as the inverse mapping matrix
+
+    ## calculating A matrix and save it for the first-time running
+    # W = mt.model.state_dict()['lm_head.weight'] # W * h = v, shape = [32000, hid_dim]
+    # X = torch.matmul(torch.transpose(W, 1, 0), W) # X = W^T * W, shape = [hid_dim, hid_dim]
+    # print(X.shape)
+    # X = X.double()
+    # X_inv = torch.linalg.inv(X) # X_inv = (W^T * W)^(-1), shape = [hid_dim, hid_dim] 
+    # print(X_inv.shape)
+    # print(X_inv)
+    # A = torch.matmul(X_inv, torch.transpose(W.double(), 1, 0)).cpu() # A = (W^T * W)^(-1) * W^T, shape = [hid_dim, 32000]
+    # print(A.shape)
+    # torch.save(A, inverse_map_matrix_path)
+
+    ## if we already saved the matrix before, directly load it from local path
+    A = torch.load(inverse_map_matrix_path).cuda() # A.shape = [hid_dim, 32000]
+else: # use transpose matrix as the inverse mapping matrix
     A = torch.transpose(W, 1, 0).double()
+
+
 
 def get_rank(logits, check_tok_enc):
                     logits_dict = dict()
