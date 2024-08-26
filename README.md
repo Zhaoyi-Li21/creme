@@ -4,7 +4,12 @@ This repo contains the official implementation for the paper *Understanding and 
 ## Install conda environment and packages
 
 ## Data and Models
-- For data please find in the `./data` dictionary.
+For data please switch the working path into the `./data` dictionary and run `cd mquake` command.
+- The original MQuAKE-CF data (2hop split): `MQuAKE-CF-3k.2hop.json`. This data file is directly used for inference experiments (compositionality gap).
+- For the inference experiments, to align the LLMs' output format to the answer space (i.e., directly output the answer rather than other common words (e.g., "OK", "Cool", repeating the question and stuff)), we use few-shot prompts to instruct models. The templates could be found in `./data/mquake/prompts`.
+- For inspecting, causality and locating experiments: we use `comp_cloze_prefix.json` (or `comp_cloze_suffix.json`), where we paraphrase knowledge items in the Cloze-Test form (i.e., (subject, relation, object): The creator of C. Auguste Dupin is __, in align with previous works, e.g., [https://arxiv.org/abs/2202.05262](ROME), [https://arxiv.org/abs/2309.05605](Memory Injections), [https://arxiv.org/abs/2304.14767](Dissecting Factual Recall) and stuff).
+- For editing (patching) experiments: we construct `MQuAKE-CF-3k.2hop.edit.json`, where we sample paraphrasing set, generalization set and irrelavance set (please refer to the paper for detailed introduction) for each testing case on the basis of `MQuAKE-CF-3k.2hop.json`.
+
 ## Inference Experiments (Compositionality Gap)
 - For running inference experiments, please first running the command `cd inference` to switch working dictionary to the `inference` dictionary.
 ## Logit Lens Experiments
