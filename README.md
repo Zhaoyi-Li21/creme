@@ -1,6 +1,6 @@
 # Understanding and Patching Compositional Multihop Reasoning in Large Language Models
 This repo contains the official implementation for the paper *Understanding and Patching Compositional Reasoning in LLMs* (ACL'2024, Findings)
-![Understanding and patching Compositional Reasoning in LLMs](poster_acl2024_creme_page-0001.jpg)
+
 ## Install conda environment and packages
 The environment yaml files are located in the `./environments` dictionary. Note that we have two environments: one for investigating experiments (inference, logit lens, causal intervention and locating), another one for patching experiments (creme).
 - For investigating experiments: run the command `conda env create -n investigate environments/investigating/environment.yaml`; then activate the environment `conda activate investigate` when running investigating experiments.
@@ -57,3 +57,5 @@ If you find the paper or the repo is helpful, it would be lovely that you consid
     abstract = "LLMs have marked a revolutonary shift, yet they falter when faced with compositional reasoning tasks. Our research embarks on a quest to uncover the root causes of compositional reasoning failures of LLMs, uncovering that most of them stem from the improperly generated or leveraged implicit reasoning results. Inspired by our empirical findings, we resort to Logit Lens and an intervention experiment to dissect the inner hidden states of LLMs. This deep dive reveals that implicit reasoning results indeed surface within middle layers and play a causative role in shaping the final explicit reasoning results. Our exploration further locates multi-head self-attention (MHSA) modules within these layers, which emerge as the linchpins in accurate generation and leveraing of implicit reasoning results. Grounded on the above findings, we develop CREME, a lightweight method to patch errors in compositional reasoning via editing the located MHSA modules. Our empirical evidence stands testament to CREME{'}s effectiveness, paving the way for autonomously and continuously enhancing compositional reasoning capabilities in language models.",
 }
 ```
+## Poster
+![Understanding and patching Compositional Reasoning in LLMs](poster_acl2024_creme_page-0001.jpg)
