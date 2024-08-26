@@ -1,0 +1,17 @@
+{
+    "correctness": {
+        "target": 0.935,
+        "wrong": 0.415
+    },
+    "paraphrase": {
+        "target": 0.92625,
+        "wrong": 0.5391666666666668
+    },
+    "generalize": {
+        "target": 0.9398809523809525
+    },
+    "irrelevant": {
+        "target": 0.48668341708542745,
+        "wrong": 0.7075376884422112
+    }
+}

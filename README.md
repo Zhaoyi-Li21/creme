@@ -2,7 +2,9 @@
 This repo contains the official implementation for the paper *Understanding and Patching Compositional Reasoning in LLMs* (ACL'2024, Findings)
 
 ## Install conda environment and packages
-
+The environment yaml files are located in the `./environments` dictionary. Note that we have two environments: one for investigating experiments (inference, logit lens, causal intervention and locating), another one for patching experiments (creme).
+- For investigating experiments: run the command `conda env create -n investigate environments/investigating/environment.yaml`; then activate the environment `conda activate investigate` when running investigating experiments.
+- For patching experiments: run the command `conda env create -n patch environments/patching/environment.yaml`; then activate the environment `conda activate patch` when running patching experiments.
 ## Data and Models
 For data please switch the working path into the `./data` dictionary and run `cd mquake` command.
 - The original MQuAKE-CF data (2hop split): `MQuAKE-CF-3k.2hop.json`. This data file is directly used for inference experiments (compositionality gap).

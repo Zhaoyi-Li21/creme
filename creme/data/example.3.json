@@ -1,0 +1,12 @@
+[
+    {
+      "prompt": "the creator of {} is",
+      "subject": "C. Auguste Dupin",
+      "target": "Charles Dickens",
+      "queries": [
+        "Q: Who is the president of the United States?\nA: Joe Biden\nQ: Who is the creator of C. Auguste Dupin is?\nA:",
+        "Q: Who is the president of the United States?\nA: Joe Biden\nQ: What is the name of the creator of C. Auguste Dupin?\nA:",
+        "the creator of C. Auguste Dupin is"
+      ]
+    }
+  ]

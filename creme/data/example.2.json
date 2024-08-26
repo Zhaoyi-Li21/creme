@@ -1,0 +1,17 @@
+[
+    {
+      "prompt": "The country that {} belongs to is",
+      "subject": "Edgar Allan Poe",
+      "target": "China",
+      "queries": [
+        "Q: Who is the president of the United States?\nA: Joe Biden\nQ: What is the citizenship of Edgar Allan Poe?\nA:",
+        "Q: Who is the president of the United States?\nA: Joe Biden\nQ: What is the nationality of Edgar Allan Poe?\nA:",
+        "Q: Who is the president of the United States?\nA: Joe Biden\nQ: Which country does Edgar Allan Poe belong to?\nA:",
+        "Q: Who is the president of the United States?\nA: Joe Biden\nQ: To which country is Edgar Allan Poe affiliated with?\nA:",
+        "The country that Edgar Allan Poe belongs to is",
+        "The nationality of Edgar Allan Poe is",
+        "The country where Edgar Allan Poe is a citizen is",
+        "Edgar Allan Poe is a citizen of"
+      ]
+    }
+  ]

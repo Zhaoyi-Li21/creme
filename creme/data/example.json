@@ -1,0 +1,14 @@
+[
+  {
+    "prompt": "The country that {} belongs to is",
+    "subject": "the creator of C. Auguste Dupin",
+    "target": "United States of America",
+    "queries": [
+      "the city that the creator of C. Auguste Dupin died in is",
+      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: Which city did the creator of C. Auguste Dupin die in?\nA:",
+      "The country where the creator of C. Auguste Dupin is a citizen is",
+      "The creator of C. Auguste Dupin is a citizen of",
+      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: What is the nationality of the creator of C. Auguste Dupin?\nA:"
+    ]
+  }
+]

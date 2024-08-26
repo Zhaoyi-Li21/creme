@@ -1,0 +1,257 @@
+
+################################
+#                              #
+#  Retrieving hyperparameters  #
+#                              #
+################################
+ROMEHyperParams(layers=[17, 18, 19, 20, 21, 22, 23], fact_token='last', v_num_grad_steps=20, v_lr=0.1, v_loss_layer=31, v_weight_decay=0.001, clamp_norm_factor=4, kl_factor=0.0625, mom2_adjustment=False, rewrite_module_tmp='transformer.h.{}.mlp.fc_out', layer_module_tmp='model.layers.{}', mlp_module_tmp='model.layers.{}.mlp', attn_module_tmp='model.layers.{}.self_attn', ln_f_module='model.norm', lm_head_module='lm_head', mom2_dataset='wikipedia', mom2_n_samples=100000, mom2_dtype='float16', edit_mode='middle-attention', rewrite_module_tmp_mlp='model.layers.{}.mlp.down_proj', rewrite_module_tmp_attn='model.layers.{}.self_attn.o_proj', transpose=True, check_updated_vector=True)
+check_tok_enc: [1, 3303, 3900, 310, 6813]
+check_tok_enc: [1, 2155, 5397, 2178, 273, 3929, 29872]
+check_tok_enc: [1, 3444]
+
+#####################################################
+#                                                   #
+#  Generating pre-update text for paraphrase cases  #
+#                                                   #
+#####################################################
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: What is the citizenship of the creator of C. Auguste Dupin?
+A: French
+Q: What is the name
+United States of America prob:0.0015102177858352661,France prob:0.04742431640625
+
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: What is the nationality of the creator of C. Auguste Dupin?
+A: French
+Q: What is the national
+United States of America prob:0.00024121999740600586,France prob:0.005397796630859375
+
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: Which country does the creator of C. Auguste Dupin belong to?
+A: France
+Q: What is the name
+United States of America prob:0.004450157284736633,France prob:0.78369140625
+
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: To which country is the creator of C. Auguste Dupin affiliated with?
+A: France
+Q: What is the name
+United States of America prob:0.0029510855674743652,France prob:0.7880859375
+
+The country that the creator of C. Auguste Dupin belongs to is France.
+The country that the cre
+United States of America prob:0.0037085115909576416,France prob:0.41748046875
+
+The nationality of the creator of C. Auguste Dupin is unknown.
+The first story of the
+United States of America prob:0.0038706809282302856,France prob:0.00928497314453125
+
+The country where the creator of C. Auguste Dupin is a citizen is France.
+The country where the cre
+United States of America prob:0.0051987022161483765,France prob:0.233154296875
+
+The creator of C. Auguste Dupin is a citizen of the world. He is a Frenchman
+United States of America prob:0.004098802804946899,France prob:0.08306884765625
+
+#########################################################
+#                                                       #
+#  Generating pre-update text for generalization cases  #
+#                                                       #
+#########################################################
+check_tok_enc: [1, 26767]
+check_tok_enc: [1, 26767]
+the city that the creator of C. Auguste Dupin died in is ?
+The city that the creator of C
+Baltimore prob:0.0016336441040039062
+
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: Which city did the creator of C. Auguste Dupin die in?
+A: Paris
+Q: What is the name of the
+Baltimore prob:0.0302886962890625
+
+###############################################################################
+#                                                                             #
+#  Key possibilities for comp, guide and first-hop with the pre-update model  #
+#                                                                             #
+###############################################################################
+comp: The country that the creator of C. Auguste Dupin belongs to is United States of America 0.0037221014499664307
+comp: The country that the creator of C. Auguste Dupin belongs to is France 0.415771484375
+guide: The country that Edgar Allan Poe belongs to is United States of America 0.02718445658683777
+first-hop: the creator of C. Auguste Dupin is Edgar Allan Poe 0.022344162066777546
+
+############################
+#                          #
+#  Applying rome to model  #
+#                          #
+############################
+Executing ROME algorithm for the update:  [The country that the creator of C. Auguste Dupin belongs to is] -> [The country that Edgar Allan Poe belongs to is]
+Computing left vector (u)...
+Selected u projection token with last token
+Left vector shape: torch.Size([4096])
+Computing right vector (v)...
+Selected v projection token with last token
+Selected u projection token with last token
+Right vector shape: torch.Size([4096])
+torch.Size([4096, 4096])
+Distance between v_new and v_old: tensor(4.8516, device='cuda:0', dtype=torch.float16)
+Distance between v_new and v_target: tensor(0.0040, device='cuda:0', dtype=torch.float16)
+Distance between pre v_old and now v_old: tensor(0.0022, device='cuda:0', dtype=torch.float16)
+Computing left vector (u)...
+Selected u projection token with last token
+Left vector shape: torch.Size([4096])
+Computing right vector (v)...
+Selected v projection token with last token
+Selected u projection token with last token
+Right vector shape: torch.Size([4096])
+torch.Size([4096, 4096])
+Distance between v_new and v_old: tensor(4.8242, device='cuda:0', dtype=torch.float16)
+Distance between v_new and v_target: tensor(0.0037, device='cuda:0', dtype=torch.float16)
+Distance between pre v_old and now v_old: tensor(0.0020, device='cuda:0', dtype=torch.float16)
+Computing left vector (u)...
+Selected u projection token with last token
+Left vector shape: torch.Size([4096])
+Computing right vector (v)...
+Selected v projection token with last token
+Selected u projection token with last token
+Right vector shape: torch.Size([4096])
+torch.Size([4096, 4096])
+Distance between v_new and v_old: tensor(6.7109, device='cuda:0', dtype=torch.float16)
+Distance between v_new and v_target: tensor(0.0041, device='cuda:0', dtype=torch.float16)
+Distance between pre v_old and now v_old: tensor(0.0021, device='cuda:0', dtype=torch.float16)
+Computing left vector (u)...
+Selected u projection token with last token
+Left vector shape: torch.Size([4096])
+Computing right vector (v)...
+Selected v projection token with last token
+Selected u projection token with last token
+Right vector shape: torch.Size([4096])
+torch.Size([4096, 4096])
+Distance between v_new and v_old: tensor(6.8906, device='cuda:0', dtype=torch.float16)
+Distance between v_new and v_target: tensor(0.0051, device='cuda:0', dtype=torch.float16)
+Distance between pre v_old and now v_old: tensor(0.0032, device='cuda:0', dtype=torch.float16)
+Computing left vector (u)...
+Selected u projection token with last token
+Left vector shape: torch.Size([4096])
+Computing right vector (v)...
+Selected v projection token with last token
+Selected u projection token with last token
+Right vector shape: torch.Size([4096])
+torch.Size([4096, 4096])
+Distance between v_new and v_old: tensor(5.0430, device='cuda:0', dtype=torch.float16)
+Distance between v_new and v_target: tensor(0.0036, device='cuda:0', dtype=torch.float16)
+Distance between pre v_old and now v_old: tensor(0.0018, device='cuda:0', dtype=torch.float16)
+Computing left vector (u)...
+Selected u projection token with last token
+Left vector shape: torch.Size([4096])
+Computing right vector (v)...
+Selected v projection token with last token
+Selected u projection token with last token
+Right vector shape: torch.Size([4096])
+torch.Size([4096, 4096])
+Distance between v_new and v_old: tensor(4.2695, device='cuda:0', dtype=torch.float16)
+Distance between v_new and v_target: tensor(0.0032, device='cuda:0', dtype=torch.float16)
+Distance between pre v_old and now v_old: tensor(0.0020, device='cuda:0', dtype=torch.float16)
+Computing left vector (u)...
+Selected u projection token with last token
+Left vector shape: torch.Size([4096])
+Computing right vector (v)...
+Selected v projection token with last token
+Selected u projection token with last token
+Right vector shape: torch.Size([4096])
+torch.Size([4096, 4096])
+Distance between v_new and v_old: tensor(6.4180, device='cuda:0', dtype=torch.float16)
+Distance between v_new and v_target: tensor(0.0029, device='cuda:0', dtype=torch.float16)
+Distance between pre v_old and now v_old: tensor(0.0014, device='cuda:0', dtype=torch.float16)
+Deltas successfully computed for ['model.layers.17.self_attn.o_proj.weight', 'model.layers.18.self_attn.o_proj.weight', 'model.layers.19.self_attn.o_proj.weight', 'model.layers.20.self_attn.o_proj.weight', 'model.layers.21.self_attn.o_proj.weight', 'model.layers.22.self_attn.o_proj.weight', 'model.layers.23.self_attn.o_proj.weight']
+Time elapsed: 1.81 seconds
+New weights successfully inserted into ['model.layers.17.self_attn.o_proj.weight', 'model.layers.18.self_attn.o_proj.weight', 'model.layers.19.self_attn.o_proj.weight', 'model.layers.20.self_attn.o_proj.weight', 'model.layers.21.self_attn.o_proj.weight', 'model.layers.22.self_attn.o_proj.weight', 'model.layers.23.self_attn.o_proj.weight']
+
+######################################################
+#                                                    #
+#  Generating post-update text for paraphrase cases  #
+#                                                    #
+######################################################
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: What is the citizenship of the creator of C. Auguste Dupin?
+A: Edgar Allan Poe
+Q
+United States of America prob(post-pre):195.364532457153%,France prob(post-pre):-82.12676962676963%
+
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: What is the nationality of the creator of C. Auguste Dupin?
+A: American
+Q: What is the national
+United States of America prob(post-pre):480.79441561650606%,France prob(post-pre):-79.89399293286219%
+
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: Which country does the creator of C. Auguste Dupin belong to?
+A: United States of America
+Q: Which
+United States of America prob(post-pre):1631.4989368648394%,France prob(post-pre):-77.42990654205607%
+
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: To which country is the creator of C. Auguste Dupin affiliated with?
+A: France
+Q: What is the name
+United States of America prob(post-pre):1220.4863565672274%,France prob(post-pre):-54.67781908302355%
+
+The country that the creator of C. Auguste Dupin belongs to is the United States of America.
+The
+United States of America prob(post-pre):364.6748957303696%,France prob(post-pre):-96.73976608187135%
+
+The nationality of the creator of C. Auguste Dupin is unknown.
+The first story of the
+United States of America prob(post-pre):13.307437335663716%,France prob(post-pre):-89.87263763352506%
+
+The country where the creator of C. Auguste Dupin is a citizen is the United States of America.
+The
+United States of America prob(post-pre):168.18753779963828%,France prob(post-pre):-92.78141361256544%
+
+The creator of C. Auguste Dupin is a citizen of the world. Born in Paris, he
+United States of America prob(post-pre):-4.868649705888769%,France prob(post-pre):-87.23365172667157%
+
+##########################################################
+#                                                        #
+#  Generating post-update text for generalization cases  #
+#                                                        #
+##########################################################
+check_tok_enc: [1, 26767]
+check_tok_enc: [1, 26767]
+the city that the creator of C. Auguste Dupin died in is ?
+What is the name of the city that
+Baltimore prob(post-pre):3852.8312901342674%
+
+Q: Who is the prime minister of Canada?
+A: Justin Trudeau
+Q: Which city did the creator of C. Auguste Dupin die in?
+A: Baltimore, Maryland
+Q: What is the name
+Baltimore prob(post-pre):1094.5591939546598%
+
+###############################################################################
+#                                                                             #
+#  Key possibilities for comp, guide and first-hop with the pre-update model  #
+#                                                                             #
+###############################################################################
+comp: The country that the creator of C. Auguste Dupin belongs to is United States of America 361.44099349042784%
+comp: The country that the creator of C. Auguste Dupin belongs to is France -96.78875513799177%
+guide: The country that Edgar Allan Poe belongs to is United States of America 7.713457851098328%
+first-hop: the creator of C. Auguste Dupin is Edgar Allan Poe 0.6551466119399602%
+
+#################################################
+#                                               #
+#  Starting interactively generation interface  #
+#                                               #
+#################################################
+Enter `exit` to exit the interface.
+Input: 
