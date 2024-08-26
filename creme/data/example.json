@@ -1,14 +1,30 @@
 [
   {
-    "prompt": "The country that {} belongs to is",
-    "subject": "the creator of C. Auguste Dupin",
+    "prompt_guide": "The country that {} belongs to is",
+    "prompt_comp":"The country that {} belongs to is",
+    "prompt_f_hop":"the creator of C. Auguste Dupin is",
+    "subject_guide": "Edgar Allan Poe",
+    "subject_comp": "the creator of C. Auguste Dupin",
     "target": "United States of America",
-    "queries": [
-      "the city that the creator of C. Auguste Dupin died in is",
-      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: Which city did the creator of C. Auguste Dupin die in?\nA:",
+    "wrong answer":"France",
+    "paraphrase queries": [
+      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: What is the citizenship of the creator of C. Auguste Dupin?\nA:",
+      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: What is the nationality of the creator of C. Auguste Dupin?\nA:",
+      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: Which country does the creator of C. Auguste Dupin belong to?\nA:",
+      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: To which country is the creator of C. Auguste Dupin affiliated with?\nA:",
+      "The country that the creator of C. Auguste Dupin belongs to is",
+      "The nationality of the creator of C. Auguste Dupin is",
       "The country where the creator of C. Auguste Dupin is a citizen is",
-      "The creator of C. Auguste Dupin is a citizen of",
-      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: What is the nationality of the creator of C. Auguste Dupin?\nA:"
-    ]
+      "The creator of C. Auguste Dupin is a citizen of"
+    ],
+    "generalization queries":[
+      "the city that the creator of C. Auguste Dupin died in is",
+      "Q: Who is the prime minister of Canada?\nA: Justin Trudeau\nQ: Which city did the creator of C. Auguste Dupin die in?\nA:"
+    ],
+    "generalization answers":[
+      "Baltimore",
+      "Baltimore"
+    ],
+    "layers":[17, 18, 19, 20, 21, 22, 23]
   }
 ]
