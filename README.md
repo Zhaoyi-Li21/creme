@@ -19,7 +19,7 @@ To run inference experiments (Compositionality Gap, Compositional Reasoning Erro
 
 ## Logit Lens Experiments
 The following three parts (*logit lens inspection, intervention experiments and locating experiments*) are in the `inspecting_and_intervention` dictionary, which was implemented highly on the basis of [ROME's official implementation](https://github.com/kmeng01/rome) (this is an acknowledgement!).
-
+- To run Logit Lens examples, please switch the working path: `cd inspecting_and_intervention` and run the program: `python logit_lens.py`. Note that the testing example is hard-coded in the program (so we need to mannually modify the program to test different cases). Successful running the program will generate a logit lens curve figure in the `inspecting_and_intervention/logit_lens/results` dictionary.
 ## Intervention Experiments
 To run causal intervention experiments, first change the working path `cd inspecting_and_intervention/causal_intervention`.
 - First fetch causal intervention data: run the command `python fetch.py <fix_type> <model_name>`, where `<fix_type>` could be `prefix` or `suffix`; `<model_name>` could be `llama2-7b` or `openalpaca-3b`. This program will fetch intervention data and organize them as a file `<model_name>.<fix_type>.json` in the current dictionary.
