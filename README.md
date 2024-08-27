@@ -33,8 +33,15 @@ To run locating experiments, first change the working path `cd inspecting_and_in
 - To aggregate the results (average over instances) and visualize them: first switch the working path into the `results` dictionary `cd results` and run the command `python aggregate_visualize.py <model_name> <fix_type>`. Successful running will generate a heatmap figure in the same dictionary.
 ## Correcting Compositional Reasoning Errors via Model Editing
 To run the patching experiments, first change the working path `cd creme`. This part of codes was constructed on the basis of [FastEdit](https://github.com/hiyouga/FastEdit).
-- To get statistical results, first `cd fastedit_comp`. Run the command `bash test_batch.sh` to get *correction, paraphrasing* and *generalization* testing results. Run the command `bash test_batch_v2.sh` to get *irrelevant* testing results.
-- To test a single case, first `cd fastedit_comp` and then run the command `test.sh`.
+- To prepare the editing data, first `cd make_dataset`. 
+  - For *correction*, *paraphrasing* and *generalization* testing, run `python make_dataset.py <model_name>` (`llama2-7b` or `openalpaca-3b`).
+  - For *irrelevant* testing, run `python make_dataset_irre.py <model_name>`.
+  - After generating editing data in the current dictionary path, go back to the previous folder `cd ..`.
+- To get statistical results, first `cd fastedit_comp`. Run the command `bash test_batch.sh` to get *correction*, *paraphrasing* and *generalization* testing results. Run the command `bash test_batch_irre.sh` to get *irrelevant* testing results.
+  - The results can be found in `results/v0` (for non-irrelevant testing) or `results/irrelevant` (for irrelevant testing). Running `python results/aggregate.py <testing_type>` (testing_type = v0 or irrelevant) can generate the averaged results.
+- To test a single case,
+  - Prepare the testing case in `creme/data`, following the format of `example.json` (the nationality, creator, C. Auguste Dupin case).
+  - Switch the working path `cd fastedit_comp` and then run the command `test.sh`. The output content could be viewed in the `testing.txt` file.
 
 ## Citation
 If you find the paper or the repo is helpful, it would be lovely that you considering cite the paper:

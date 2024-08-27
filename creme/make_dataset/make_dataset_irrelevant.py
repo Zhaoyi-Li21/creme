@@ -22,28 +22,36 @@
 #       "layers":[17, 18, 19, 20, 21, 22, 23]
 #     }
 # ]
+
 import json
+import sys
 import random
 
-model_name = "openalpaca"
-if model_name == "llama-2":
+model_name = sys.argv[1].replace('_', '-')# "openalpaca-3b" or "llama2-7b"
+if model_name == "llama2-7b":
     model_string = 'llama2'
-elif model_name == "openalpaca":
+elif model_name == "openalpaca-3b":
     model_string = 'openalpaca'
 
-mode = 'suf'
-read_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/inference/MQuAKE/filter_2/"+model_string+".pass_singles_fail_comp.wpred.dedup.switch."+mode+"cloze.json"
+mode = 'suf' 
+fix = 'suffix'
+dir_path = "/root/autodl-tmp/zhaoyi/creme"
+# compositional reasoning failures
+read_path = dir_path + "/inference/MQuAKE/filter/"+model_name+".pass_singles_fail_comp."+fix+".json"
 fr = open(read_path, "r")
-reference_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/datasets/MQuAKE/datasets/MQuAKE-CF-3k.2hop.edit.json"
+
+
+reference_path = dir_path + "/data/mquake/MQuAKE-CF-3k.2hop.edit.json"
 fr_reference = open(reference_path, "r")
 refer_data = json.load(fr_reference)
 
-write_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/FastEdit/make_dataset/"+model_string+'.'+mode+'.v2.json'
+write_path = dir_path + "/creme/make_dataset/"+model_string+'.'+mode+'.irre.json'
 fw = open(write_path, "w")
 data = json.load(fr)
 
-pre_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/datasets/MQuAKE/datasets/comp_cloze_prefix.json"
-suf_path = "/root/autodl-tmp/zhaoyi/knowledge_locate/datasets/MQuAKE/datasets/comp_cloze_suffix.json"
+pre_path = dir_path + "/data/mquake/comp_cloze_prefix.json"
+suf_path = dir_path + "/data/mquake/comp_cloze_suffix.json"
+
 fr_pre = open(pre_path, "r")
 fr_suf = open(suf_path, "r")
 pre_data = json.load(fr_pre)

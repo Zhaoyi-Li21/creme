@@ -79,8 +79,6 @@ def test_rome(
     generalize_queries = [query for query in request["generalization queries"]]
     generalize_answers = [answer for answer in request["generalization answers"]]
 
-    irrelevant_queries = [query for query in request["irrelevant queries"]]
-    irrelevant_answers = [answer for answer in request["irrelevant answers"]]
 
     cloze_comp = request["prompt_comp"].format(request["subject_comp"])
     cloze_guide = request["prompt_guide"].format(request["subject_guide"])
@@ -128,18 +126,6 @@ def test_rome(
         # print("\n\n".join([generalize_queries[i] + " " + pre_update_text[i] + "\n" +str(generalize_answers[i])+" prob:" + str(pre_gen_probs[i][0])  for i in range(len(generalize_queries))]))
         output_datum["generalize"]["pre_probs"]["target"] = [pre_gen_probs[i][0] for i in range(len(generalize_queries))]
 
-    output_datum["irrelevant"] = dict()
-    output_datum["irrelevant"]["pre_probs"] = dict()
-    for key in ["target", "wrong"]:
-        output_datum["irrelevant"]["pre_probs"][key] = list()
-
-    if len(irrelevant_queries) > 0:
-        # print_loud("Generating pre-update text for generalization cases")
-        # pre_update_text = generate_fast(model_old, tokenizer, irrelevant_queries, template, max_length=100)
-        pre_irre_probs = [get_prob(model_old, tokenizer, irrelevant_queries[i], template, enc_tok(irrelevant_answers[i], True), explicit_toks ) for i in range(len(irrelevant_queries))]
-        # print("\n\n".join([irrelevant_queries[i] + " " + pre_update_text[i] + "\n" +str(irrelevant_answers[i])+" prob:" + str(pre_irre_probs[i][0])  for i in range(len(irrelevant_queries))]))
-        output_datum["irrelevant"]["pre_probs"]["target"] = [pre_irre_probs[i][0] for i in range(len(irrelevant_queries))]
-        output_datum["irrelevant"]["pre_probs"]["wrong"] = [pre_irre_probs[i][1] for i in range(len(irrelevant_queries))]
 
     # print_loud("Key possibilities for comp, guide and first-hop with the pre-update model")
     pre_prob_comp, pre_prob_wrong_comp, pre_prob_guide,  pre_prob_f_hop\
@@ -195,17 +181,6 @@ def test_rome(
         output_datum["generalize"]["post_probs"]["target"] = [post_gen_probs[i][0] for i in range(len(generalize_queries))]
 
 
-    output_datum["irrelevant"]["post_probs"] = dict()
-    for key in ["target", "wrong"]:
-        output_datum["irrelevant"]["post_probs"][key] = list()
-
-    if len(irrelevant_queries) > 0:
-        # print_loud("Generating pre-update text for generalization cases")
-        # pre_update_text = generate_fast(model_old, tokenizer, irrelevant_queries, template, max_length=100)
-        post_irre_probs = [get_prob(model_new, tokenizer, irrelevant_queries[i], template, enc_tok(irrelevant_answers[i], True), explicit_toks ) for i in range(len(irrelevant_queries))]
-        # print("\n\n".join([irrelevant_queries[i] + " " + pre_update_text[i] + "\n" +str(irrelevant_answers[i])+" prob:" + str(pre_irre_probs[i][0])  for i in range(len(irrelevant_queries))]))
-        output_datum["irrelevant"]["post_probs"]["target"] = [post_irre_probs[i][0] for i in range(len(irrelevant_queries))]
-        output_datum["irrelevant"]["post_probs"]["wrong"] = [post_irre_probs[i][1] for i in range(len(irrelevant_queries))]
 
     # print_loud("Key possibilities for comp, guide and first-hop with the pre-update model")
     after_prob_comp, after_prob_wrong_comp, after_prob_guide, after_prob_f_hop\
@@ -222,7 +197,7 @@ def test_rome(
     output_datum["second-hop"]["post_prob"] = after_prob_guide
     output_datum["first-hop"]["post_prob"] = after_prob_f_hop
 
-    for type in ["correctness", "paraphrase", "generalize","irrelevant"]:
+    for type in ["correctness", "paraphrase", "generalize"]:
         output_datum[type]["delta"] = dict()
         for key in ["target", "wrong"]:
             if key in output_datum[type]["post_probs"]:
