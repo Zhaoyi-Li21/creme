@@ -1,5 +1,5 @@
 # Understanding and Patching Compositional Multihop Reasoning in Large Language Models
-This repo contains the official implementation for the paper *Understanding and Patching Compositional Reasoning in LLMs* (ACL'2024, Findings)
+This repo contains the official implementation for the paper [*Understanding and Patching Compositional Reasoning in LLMs*](https://arxiv.org/abs/2402.14328) (ACL'2024, Findings)
 
 ## Install conda environment and packages
 The environment yaml files are located in the `./environments` dictionary. Note that we have two environments: one for investigating experiments (inference, logit lens, causal intervention and locating), another one for patching experiments (creme).
@@ -44,7 +44,7 @@ To run the patching experiments, first change the working path `cd creme`. This 
   - Switch the working path `cd fastedit_comp` and then run the command `test.sh`. The output content could be viewed in the `testing.txt` file.
 
 ## Citation
-If you find the paper or the repo is helpful, it would be lovely that you considering cite the paper:
+If you find the paper or the repo is helpful, it would be very lovely that you consider citing the paper (with the following bibtex):
 ```
 @inproceedings{li-etal-2024-understanding,
     title = "Understanding and Patching Compositional Reasoning in {LLM}s",
